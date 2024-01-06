@@ -1,0 +1,9 @@
+---
+- name: SSH ssh-keyscan
+  hosts: kubecluster
+  gather_facts: false
+  tasks:
+   - name: SSH ssh-keyscan
+     ansible.builtin.shell: ssh-keyscan -H {{ inventory_hostname }} >> ~/.ssh/known_hosts
+     delegate_to: localhost
+     changed_when: false

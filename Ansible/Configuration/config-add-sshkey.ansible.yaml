@@ -1,0 +1,12 @@
+---
+- name: Add ssh key
+  hosts: kubecluster
+  become: true
+  become_user: aquabrain
+  gather_facts: false
+  tasks:
+    - name: Install public key
+      ansible.posix.authorized_key:
+        user: aquabrain
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
