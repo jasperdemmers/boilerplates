@@ -1,0 +1,10 @@
+network:
+  version: 2
+  ethernets:
+    eth0: # Change this to your network interface
+      dhcp4: no # Change this to yes if you want to use DHCP
+      addresses:
+        - 192.168.0.2/24 # Change this to your IP address
+      gateway4: 192.168.0.1 # Change this to your gateway IP address
+      nameservers:
+          addresses: [8.8.8.8, 8.8.4.4] # Change this to your DNS server
