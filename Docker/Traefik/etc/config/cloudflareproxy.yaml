@@ -1,0 +1,8 @@
+http:
+    middlewares:
+        cloudflareproxy:
+            plugin:
+                cloudflarewarp:
+                    disableDefault: "false"
+                    trustip:
+                        - 2400:cb00::/32

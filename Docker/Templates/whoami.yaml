@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  whoami:
+    image: containous/whoami
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.jdemmers.xyz`)"
+      - "traefik.http.routers.whoami.entrypoints=https"
+      - "traefik.http.routers.whoami.middlewares=cloudflareproxy"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

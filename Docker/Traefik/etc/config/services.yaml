@@ -1,0 +1,11 @@
+http:
+  routers:
+    homeassistant:
+      rule: "Host(`home.jdemmers.xyz`)"
+      service: homeassistant
+      
+  services:
+    homeassistant:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.4.2:8123"

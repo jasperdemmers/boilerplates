@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  portainer:
+    image: portainer/portainer-ee:latest
+    #networks:
+      #- proxy
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    container_name: portainer
+    #labels:
+      #- traefik.enable=true
+      #- traefik.http.routers.portainer.rule=Host(`portainer.jdemmers.xyz`)
+      #- traefik.http.routers.portainer.entrypoints=https
+      #- traefik.http.services.portainer.loadbalancer.server.port=9000
+
+volumes:
+  portainer_data:
+#networks:
+  #proxy:
+    #external: true

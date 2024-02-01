@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  traefik:
+    image: traefik:latest
+    restart: unless-stopped
+    environment:
+      - CF_DNS_API_TOKEN=
+    networks:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.traefik/etc:/etc/traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.jdemmers.xyz`)"
+      - "traefik.http.routers.traefik.entryPoints=https"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.middlewares=auth@file"
+networks:
+  proxy:
+    external: true

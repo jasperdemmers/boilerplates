@@ -1,0 +1,18 @@
+version: "3.2"
+services:
+  radarr:
+    container_name: radarr-4k
+    image: ghcr.io/hotio/radarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    ports:
+      - 7979:7878
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ~/.radarr-4k/config:/config
+      - /data:/data
