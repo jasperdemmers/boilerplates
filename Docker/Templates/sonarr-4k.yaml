@@ -14,5 +14,7 @@ services:
       - TZ=Europe/Amsterdam
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ~/.sonarr-4k/config:/config
-      - /data:/data
+      - ~/.sonarr-4k/config:/config # Config directory
+      - /data:/data # Data directory
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true" # Watchtower label

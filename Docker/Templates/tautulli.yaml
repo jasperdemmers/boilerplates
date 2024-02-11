@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+  tautulli:
+    container_name: tautulli
+    image: ghcr.io/hotio/tautulli:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    ports:
+      - 8181:8181
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ~/.tautulli/config:/config

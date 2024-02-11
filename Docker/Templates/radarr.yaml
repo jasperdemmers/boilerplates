@@ -14,5 +14,7 @@ services:
       - TZ=Europe/Amsterdam
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ~/.radarr/config:/config
-      - /data:/data
+      - ~/.radarr/config:/config # Config directory
+      - /data:/data # Data directory
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true" # Watchtower label

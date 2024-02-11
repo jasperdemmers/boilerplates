@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+  overseerr:
+    container_name: overseerr
+    image: ghcr.io/hotio/overseerr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    ports:
+      - 5055:5055
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ~/.overseerr/config:/config
