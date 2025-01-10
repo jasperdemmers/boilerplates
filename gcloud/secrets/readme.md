@@ -1,4 +1,4 @@
-# Updated Migrate Secrets Script
+# Migrate Secrets Script
 
 This Bash script simplifies the migration of secrets from a `.env` file to Google Cloud Secret Manager. It supports custom file paths, prefixes, and a dry-run mode for testing.
 

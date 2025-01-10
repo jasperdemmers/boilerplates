@@ -76,7 +76,7 @@ while IFS= read -r line || [ -n "$line" ]; do
   fi
 
   # Convert the key to lowercase and replace underscores with hyphens
-  SECRET_NAME="${PREFIX}$(echo "$KEY" | tr '[:upper:]' '[:lower:]' | tr '_' '-')"
+  SECRET_NAME="${PREFIX}$(echo "$KEY" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | sed 's/[^a-z0-9-]//g' | cut -c1-63)"
 
   if $DRY_RUN; then
     echo "[DRY-RUN] Would check if secret exists: $SECRET_NAME"
@@ -89,12 +89,18 @@ while IFS= read -r line || [ -n "$line" ]; do
       echo "Secret $SECRET_NAME already exists. Skipping creation."
     else
       # Create the secret
-      gcloud secrets create "$SECRET_NAME" --replication-policy="automatic"
+      if ! gcloud secrets create "$SECRET_NAME" --replication-policy="automatic"; then
+        echo "Error: Failed to create secret $SECRET_NAME"
+        exit 1
+      fi
       echo "Created secret: $SECRET_NAME"
     fi
 
     # Add the secret value as a new version
-    echo -n "$VALUE" | gcloud secrets versions add "$SECRET_NAME" --data-file=-
+    if ! echo -n "$VALUE" | gcloud secrets versions add "$SECRET_NAME" --data-file=-; then
+      echo "Error: Failed to add value to secret $SECRET_NAME"
+      exit 1
+    fi
     echo "Added value to secret: $SECRET_NAME"
   fi
 
